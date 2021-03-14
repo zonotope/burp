@@ -5,3 +5,7 @@ deps: deps.edn
 
 test:
 	clojure -M:dev:test -m kaocha.runner
+
+target/burp:
+	@mkdir -p $(@D)
+	clojure -M:native-image

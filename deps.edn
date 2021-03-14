@@ -3,7 +3,19 @@
  :deps {org.clojure/clojure {:mvn/version "1.10.2"}}
 
  :aliases
- {:dev {:extra-paths ["dev/src" "dev/resources"]}
-  :test {:extra-paths ["test"]
-         :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
-                      lambdaisland/kaocha {:mvn/version "1.0.829"}}}}}
+ {:dev
+  {:extra-paths ["dev/src" "dev/resources"]}
+
+  :test
+  {:extra-paths ["test"]
+   :extra-deps {org.clojure/test.check {:mvn/version "1.1.0"}
+                lambdaisland/kaocha {:mvn/version "1.0.829"}}}
+
+  :native-image
+  {:extra-deps {clj.native-image/clj.native-image
+                {:git/url "https://github.com/taylorwood/clj.native-image.git"
+                 :sha "7708e7fd4572459c81f6a6b8e44c96f41cdd92d4"}}
+   :jvm-opts ["-Dclojure.compiler.direct-linking=true"]
+   :main-opts ["-m" "clj.native-image" "one.732.burp"
+               "--initialize-at-build-time"
+               "-H:Name=target/burp"]}}}
